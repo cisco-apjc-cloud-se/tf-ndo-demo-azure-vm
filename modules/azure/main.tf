@@ -106,8 +106,8 @@ resource "azurerm_network_interface" "nic" {
   for_each = local.appregionvmmap
 
   name                = format("nic-%s-%d", each.value.instance_name, each.value.instance_number)
-  location            = azurerm_resource_group.rg[format("%s-%s", each.value.app_name, each.value.region)].location  ## RG for App, not VNET
-  resource_group_name = azurerm_resource_group.rg[format("%s-%s", each.value.app_name, each.value.region)].name      ## RG for App, not VNET
+  location            = azurerm_resource_group.rg[format("%s-%s", each.value.app_name, each.value.region_name)].location  ## RG for App, not VNET
+  resource_group_name = azurerm_resource_group.rg[format("%s-%s", each.value.app_name, each.value.region_name)].name      ## RG for App, not VNET
 
   ip_configuration {
     name                          = "internal"
