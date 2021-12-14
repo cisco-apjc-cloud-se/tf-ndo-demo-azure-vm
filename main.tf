@@ -52,7 +52,4 @@ module "azure" {
   instance_type   = "Standard_B1s"
   public_key      = var.public_key
 
-  depends_on = [
-    module.ndo
-  ]
 }
