@@ -121,8 +121,8 @@ resource "azurerm_linux_virtual_machine" "vm" {
   for_each = local.appregionvmmap
 
   name                = format("%s-%d", each.value.instance_name, each.value.instance_number)
-  resource_group_name = azurerm_resource_group.rg[format("%s-%s", each.value.app_name, each.value.region)].name      ## RG for App, not VNET
-  location            = azurerm_resource_group.rg[format("%s-%s", each.value.app_name, each.value.region)].location  ## RG for App, not VNET
+  resource_group_name = azurerm_resource_group.rg[format("%s-%s", each.value.app_name, each.value.region_name)].name      ## RG for App, not VNET
+  location            = azurerm_resource_group.rg[format("%s-%s", each.value.app_name, each.value.region_name)].location  ## RG for App, not VNET
   size                = var.instance_type
   admin_username      = "ubuntu"
   network_interface_ids = [
