@@ -50,6 +50,6 @@ module "azure" {
   tenant          = var.tenant
   azure_apps      = var.azure_apps
   instance_type   = "Standard_B1s"
-  public_key      = var.public_key
+  public_key      = var.public_key_rsa # Azure only supports RSA keys
 
 }
