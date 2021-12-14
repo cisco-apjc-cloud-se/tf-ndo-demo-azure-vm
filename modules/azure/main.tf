@@ -23,7 +23,7 @@ locals {
             subnet_cidr     = vm.subnet_cidr
             instance_name   = vm.instance_name
             instance_count  = vm.instance_count # Total instances
-            instance_number = i # Specific instance number
+            instance_number = i+1 # Specific instance number, starts at 0
           }
           // if site.type != "aci"
         ]
@@ -141,8 +141,8 @@ resource "azurerm_linux_virtual_machine" "vm" {
 
   source_image_reference {
     publisher = "Canonical"
-    offer     = "UbuntuServer"
-    sku       = "20.04-LTS"
+    offer     = "0001-com-ubuntu-server-focal-daily"
+    sku       = "20_04-daily-lts-gen2"
     version   = "latest"
   }
 }
