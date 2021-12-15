@@ -145,4 +145,8 @@ resource "azurerm_linux_virtual_machine" "vm" {
     sku       = "20_04-daily-lts-gen2"
     version   = "latest"
   }
+
+  tags = {
+    EPG = each.value.tier
+  }
 }
