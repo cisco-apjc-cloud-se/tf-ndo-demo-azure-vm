@@ -101,6 +101,17 @@ data "azurerm_subnet" "subnet" {
 ### Build Lookup Data Source for Security Groups ###
 # ?? Needed?
 
+### Allocate Dynamic Public IPs ###
+resource "azurerm_public_ip" "ip" {
+  for_each = local.appregionvmmap
+
+  name                = format("ip-%s-%d", each.value.instance_name, each.value.instance_number)
+  resource_group_name = azurerm_resource_group.rg[format("%s-%s", each.value.app_name, each.value.region_name)].name      ## RG for App, not VNET
+  location            = azurerm_resource_group.rg[format("%s-%s", each.value.app_name, each.value.region_name)].location  ## RG for App, not VNET
+  allocation_method   = "Dynamic"
+
+}
+
 ### Build New VM NICs  ###
 resource "azurerm_network_interface" "nic" {
   for_each = local.appregionvmmap
@@ -113,6 +124,7 @@ resource "azurerm_network_interface" "nic" {
     name                          = "internal"
     subnet_id                     = data.azurerm_subnet.subnet[each.key].id #azurerm_subnet.example.id
     private_ip_address_allocation = "Dynamic"
+    public_ip_address_id          = azurerm_public_ip.ip[each.key].id
   }
 
   tags = {
