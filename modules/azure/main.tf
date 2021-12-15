@@ -128,7 +128,7 @@ resource "azurerm_network_interface" "nic" {
   }
 
   tags = {
-    EPG = each.value.tier
+    EPG = format("%s-%s",each.value.app_name, each.value.tier)
   }
 
 }
