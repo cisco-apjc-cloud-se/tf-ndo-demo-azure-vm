@@ -114,6 +114,11 @@ resource "azurerm_network_interface" "nic" {
     subnet_id                     = data.azurerm_subnet.subnet[each.key].id #azurerm_subnet.example.id
     private_ip_address_allocation = "Dynamic"
   }
+
+  tags = {
+    EPG = each.value.tier
+  }
+
 }
 
 ### Build New VMs  ###
@@ -146,7 +151,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
     version   = "latest"
   }
 
-  tags = {
-    EPG = each.value.tier
-  }
+  // tags = {
+  //   EPG = each.value.tier
+  // }
 }
